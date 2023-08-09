@@ -2,14 +2,9 @@ package RestAPI.Bank.service;
 
 import RestAPI.Bank.entity.Client;
 import RestAPI.Bank.repository.ClientRepository;
+import RestAPI.Bank.service.interfaces.ClientService;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.util.Currency;
 import java.util.List;
-import java.util.Optional;
-
-import static org.springframework.http.ResponseEntity.status;
 
 @Service
 public class ClientServiceImpl implements ClientService {
@@ -56,6 +51,22 @@ public class ClientServiceImpl implements ClientService {
             return "Data was successfully updated.";
         }
         return "Please check ID. There is no such ID in the database";
+    }
+
+    @Override
+    public String sendMoneyToUser(Double amount, int idSender) {
+        final Client client = clientRepository.getOne(idSender);
+        client.setBalance(client.getBalance() - amount);
+        clientRepository.save(client);
+        return "Sending money is successfull. ";
+    }
+
+    @Override
+    public String receiveMoneyFromUser(Double amount, int idReceiver) {
+        final Client client = clientRepository.getOne(idReceiver);
+        client.setBalance(client.getBalance() + amount);
+        clientRepository.save(client);
+        return "Sending money is successfull.";
     }
 
 

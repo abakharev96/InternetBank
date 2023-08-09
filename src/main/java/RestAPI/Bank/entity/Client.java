@@ -2,6 +2,7 @@ package RestAPI.Bank.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "clients")
@@ -10,15 +11,18 @@ public class Client {
 
     @Id
     @Column(name = "user_id")
-    @SequenceGenerator(name = "clientsIdSeq", sequenceName = "clients_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clientsIdSeq")
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private Integer id;
-
     @Column(name = "user_balance")
     private double balance;
 
     public Client() {
 
+    }
+
+    public Client(Integer id) {
+        this.id = id;
     }
 
     public Client(Integer id, Double balance) {

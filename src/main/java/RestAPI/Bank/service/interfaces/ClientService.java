@@ -1,9 +1,6 @@
-package RestAPI.Bank.service;
+package RestAPI.Bank.service.interfaces;
 
 import RestAPI.Bank.entity.Client;
-
-import java.math.BigDecimal;
-import java.util.Currency;
 import java.util.List;
 
 public interface ClientService {
@@ -11,4 +8,6 @@ public interface ClientService {
     Client read(int id);
     String putMoney(Double amount, int id);
     String takeMoney(Double amount, int id);
+    String sendMoneyToUser(Double amount, int idSender);
+    String receiveMoneyFromUser(Double amount, int idReceiver);
 }
