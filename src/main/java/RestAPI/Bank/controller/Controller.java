@@ -2,7 +2,9 @@ package RestAPI.Bank.controller;
 
 import RestAPI.Bank.entity.Client;
 import RestAPI.Bank.entity.Operation;
+import RestAPI.Bank.entity.Transfer;
 import RestAPI.Bank.repository.ClientRepository;
+import RestAPI.Bank.repository.TransferRepository;
 import RestAPI.Bank.service.interfaces.ClientService;
 import RestAPI.Bank.service.interfaces.OperationService;
 import RestAPI.Bank.service.interfaces.TransferService;
@@ -60,7 +62,8 @@ public class Controller {
                 "6. tranferMoney;" + "\n" +
                 "You can call it as /transfermonetyfrom={user_sender_id}to={user_receiver_id}&amount={amount} " + "\n" +
                 "Example: /transfermonetyfrom=1to=4&amount=25. " + "\n" +
-                "This configuration will send 25 money from client 1 to client 4 and add transactions in operation list.";
+                "This configuration will send 25 money from client 1 to client 4 and add transactions in operation list." + "\n" +
+                "7. Use /getalltransfers to print all transfers in the database.";
 
         return welcome;
     }
@@ -222,5 +225,9 @@ public class Controller {
         return updated;
     }
 
+    @GetMapping(value = "/getalltransfers")
+    public List<Transfer> readAllTransfers() {
+        return transferService.readAllTransfers();
+    }
 
 }
